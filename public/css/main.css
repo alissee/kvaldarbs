@@ -1,0 +1,31 @@
+.navbar{
+    background-color: #940A2B !important;
+    
+}
+
+
+.navbar a{
+    color: #FAF2F4 !important;
+}
+
+.dropdown-menu{
+    background-color: #EEEEEE !important;
+}
+
+
+.navbar a:hover{
+    background-color: #AC0C32 !important;
+}
+
+body{
+    background-color: #FFFFFF;
+}
+
+a:hover{
+    background-color: #940A2B !important;
+    color: #FAF2F4 !important;
+}
+
+.jumbotron{
+    background-color: #EEEEEE;
+}
