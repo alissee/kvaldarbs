@@ -11,10 +11,15 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'MainController@welcomepage')->name('home');
+// Route::get('/jaunumi', 'MainController@newspage');
+Route::get('/sazinies', 'MainController@contactus');
+Route::get('/ierices', 'MainController@devicespage');
+Route::get('/pasakumi', 'MainController@eventspage');
+
+Route::resource('/jaunumi', 'NewsController');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+// Route::get('/home', 'HomeController@index')->name('home');
+
