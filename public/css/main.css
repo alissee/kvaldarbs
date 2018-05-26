@@ -1,31 +1,206 @@
 .navbar{
-    background-color: #940A2B !important;
-    
+    background-color: black !important;
+    opacity: 0.7 !important;
 }
 
+.navbar-toggler span{
+    color: #FAF2F4;
+}
 
 .navbar a{
     color: #FAF2F4 !important;
+    text-transform: uppercase;
+
+}
+
+.navbar-collapse a{
+    margin-right: 20px;
+}
+
+.navbar-brand{
+    margin-right: 50px;
 }
 
 .dropdown-menu{
-    background-color: #EEEEEE !important;
+    background-color: black;
+    opacity: 0.6;
+    z-index: 11111;
+}
+.dropdown-menu .dropdown-item{
+    z-index: 111112;
 }
 
 
-.navbar a:hover{
-    background-color: #AC0C32 !important;
+.navbar-collapse a:hover{
+    background-color: #675D5C;
 }
 
-body{
-    background-color: #FFFFFF;
-}
-
-a:hover{
-    background-color: #940A2B !important;
+.container .frontpage-news a:hover{
+    background-color: #675D5C !important;
     color: #FAF2F4 !important;
 }
 
-.jumbotron{
-    background-color: #EEEEEE;
+
+.bg {
+    background: url('/img/img2.jpg') no-repeat center center;
+    position: fixed;
+    width: 100%;
+    height: 100%; /*same height as jumbotron */
+    top:0;
+    left:0;
+    z-index: -1;
+    opacity: 0.6;
+    
+  }
+  
+  .front-page .jumbotron {
+    margin-bottom: 0px;
+    height: 350px;
+    color: white;
+    text-shadow: black 0.3em 0.3em 0.3em;
+    background:transparent;
+    
+  }
+
+
+  body{
+      background-color:#dcd7d4;
+
+  }
+
+
+  .read-more-btn{
+      background-color: #e0dede;
+      border-color: #d1cece;
+  }
+
+  .img-up{
+      /* height: 0; */
+      top: -350px;
+  }
+
+  .post-btns{
+    display: -webkit-inline-box;
+
+  }
+
+  .post-btns a{
+      margin-left: 15px;
+      margin-right: 15px;
+  }
+
+
+  .news-section .jumbotron .display-4{
+      font-size: 2.5rem;
+
+  }
+
+  .news-section h1{
+      margin-top: 10px;
+  }
+
+  .news-section .news-date{
+      color: #bab0aa;
+      float: right;
+      margin-right: 15px;
+  }
+
+
+  .news-section .jumbotron{
+      background-color: #f3f1f0;
+  }
+
+  .news-section .jumbotron a{
+      border-color: #8d7c72;
+  }
+
+  .news-section .jumbotron a:hover{
+      background-color: #675D5C !important;
+      color: #FAF2F4 !important;
+  }
+
+
+  .edit-post h3{
+    margin-top: 10px;
+
+  }
+
+  .individual-post-body{
+    margin-top: 15px !important;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    background-color: #f3f1f0;
+    line-height: 0.8cm;
+    font-size: 1.1rem;
+  }
+  
+.styled-btn{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-color: #8d7c72;
+    color: #8d7c72;
+}
+
+.styled-btn:hover{
+    background-color: #675D5C !important;
+    color: #FAF2F4 !important;
+}
+
+.issue-msg-table{
+    background-color: #f3f1f0;
+}
+.issue-msg-table a{
+    text-decoration: none;
+    color: black;
+}
+
+.issue-msg-table a:hover{
+    text-decoration: none;
+    color: #675D5C;
+}
+
+.issue-msg-section h1{
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.contact-us-section h2{
+    margin-top: 10px;
+}
+
+.device-card{
+    width: 33%;
+    display: inline-table;
+    margin-top: 5px;
+}
+
+
+.device-card .btn{
+    margin-top: 10px;
+}
+
+.device-card img{
+    width: 100%;
+}
+
+.individual-device-img{
+    width: 80%;
+    margin-left: 10%;
+    align-content: center;
+}
+
+.individual-post-img{
+    width: 70%;
+    margin-left: 15%;
+    align-content: center;
+    margin-top: 10px;
+}
+
+.device-card-heading a:hover{
+    text-decoration: none;
+    color: #675D5C;
+}
+
+.device-card-heading a{
+    color: black;
 }

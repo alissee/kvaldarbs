@@ -18,12 +18,16 @@
                 <h4>Pievienot jaunu rakstu</h4>
                 <hr>
 
-                {!! Form::open(['route' => 'jaunumi.store']) !!}
+                {!! Form::open(['route' => 'jaunumi.store', 'enctype' => 'multipart/form-data']) !!}
                     {!! Form::label('title', 'Virsraksts:') !!}
                     {!! Form::text('title', null, array('class' => 'form-control')) !!}
 
                     {!! Form::label('body', 'Raksts:') !!}
                     {!! Form::textarea('body', null, array('class' => 'form-control')) !!}
+                    <br>
+                    {!! Form::label('file', 'Ierīces attēls:') !!}
+                    {{ Form::file('file') }}
+
                 <hr>
                     {!! Form::submit('Pievienot', array('class' => 'btn btn-outline-success ')) !!}
                 {!! Form::close() !!}

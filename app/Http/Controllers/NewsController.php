@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Post;
 use Session;
+use Auth;
+use File;
+use App\RoleUser;
 
 class NewsController extends Controller
 {
@@ -15,7 +18,8 @@ class NewsController extends Controller
      */
     public function index()
     {
-        return view('news');
+        $posts = Post::all()->sortByDesc("created_at");
+        return view('news.index')->withPosts($posts);
     }
 
     /**
@@ -25,6 +29,13 @@ class NewsController extends Controller
      */
     public function create()
     {
+
+        $roleusers = RoleUser::all();
+
+        if (($roleusers->where('user_id', auth::user()->id)->first()->role_id) !=( 1 || 3 || 4) ){
+            return redirect ('/jaunumi');
+        }
+        
         return view('news.create');
     }
 
@@ -40,12 +51,28 @@ class NewsController extends Controller
             'title' => 'required|max:255',
             'body' => 'required'
         ));
+        if (!$request->hasFile('image')) {
+            $post = new Post;
+            $post->title = $request->title;
+            $post->body = $request->body;
+            $post->user_id = auth::user()->id;
+            $post->save();
+            Session::flash('success', 'Raksts veiksmīgi izveidots');
+            return redirect()->route('jaunumi.show', $post->id);
+        }
+
+        $postimg=$request->file('image');
+        $upload='uploads/jaunumi/img';
+        $filename=$postimg->getClientOriginalName();
+        $success=$postimg->move($upload,$filename);
+        $pathtoimg = $upload . '/' . $filename;
 
         $post = new Post;
         $post->title = $request->title;
         $post->body = $request->body;
+        $post->image_path = $pathtoimg;
+        $post->user_id = auth::user()->id;
         $post->save();
-
         Session::flash('success', 'Raksts veiksmīgi izveidots');
         return redirect()->route('jaunumi.show', $post->id);
 
@@ -59,7 +86,8 @@ class NewsController extends Controller
      */
     public function show($id)
     {
-        return view('news.show');
+        $post = Post::find($id);
+        return view('news.show')->withPost($post);
     }
 
     /**
@@ -70,7 +98,18 @@ class NewsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $post = Post::find($id);
+        $roleusers = RoleUser::all();
+
+        if (($post->user_id != auth::user()->id) || (($roleusers->where('user_id', auth::user()->id)->first()->role_id) !=1 )){
+            Session::flash('warning', 'Rakstu var labot tikai raksta autors vai administrators!');
+            return redirect()->route('jaunumi.show', $post->id);
+
+        }
+        // dd($post);
+        return view('news.edit')->withPost($post);
+        
+
     }
 
     /**
@@ -82,7 +121,20 @@ class NewsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, array(
+            'title' => 'required|max:255',
+            'body' => 'required',
+            'file' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+        ));
+
+            $post = Post::find($id);
+            $post->title = $request->title;
+            $post->body = $request->body;
+            $post->user_id = auth::user()->id;
+            $post->save();
+            Session::flash('success', 'Izmaiņas veiksmīgi saglabātas');
+            return redirect()->route('jaunumi.show', $post->id);
+
     }
 
     /**
@@ -93,6 +145,27 @@ class NewsController extends Controller
      */
     public function destroy($id)
     {
+        $post = Post::find($id);
+        $roleusers = RoleUser::all();
+
+        if (($post->user_id != auth::user()->id) || (($roleusers->where('user_id', auth::user()->id)->first()->role_id) !=1 )){
+            Session::flash('warning', 'Rakstu var izdzēst tikai raksta autors vai administrators!');
+            return redirect()->route('jaunumi.show', $post->id);
+
+        }
+        $filename = $post->image_path;
+        File::delete($filename);
+        $post->delete();
+        
+        Session::flash('success', 'Ieraksts veiksmīgi izdzēsts!');
+        return redirect()->route('jaunumi.index');
+
         //
+    }
+
+
+    public function __construct()
+    {
+        $this->middleware('auth', ['except' => ['index', 'show']]);
     }
 }
